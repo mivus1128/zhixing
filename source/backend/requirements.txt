@@ -1,0 +1,70 @@
+# 知行 V3 后端依赖
+#
+# **零第三方依赖。** 这一行不是还没填,是结论——而且是**采集层、登录层、
+# 浏览器控制层全部写完之后**的结论,不是开工时的乐观估计。
+#
+# 二十七个模块全部只用标准库:
+#
+#   api archive broker captcha catalog collect context daemon eastmoney
+#   execution guards index indicators llm login macro model prompts quotes
+#   runmode runner scheduler serve setup_model state tradingdays webdriver
+#
+# 这个文件存在的意义就是把"零依赖"写下来。没有它,"没装什么"和
+# "忘了记"在仓库里长得一模一样。
+#
+# 运行:
+#   python -m tests.smoke                       # 自检,453 项
+#   python -m zhixing.serve  --archive-root ... # 接口服务(默认只绑 127.0.0.1)
+#   python -m zhixing.daemon --archive-root ... # 轮次驱动(不监听端口)
+#
+# 后两个是**两个进程**,理由写在 zhixing/daemon.py 开头:轮次挂了界面还得
+# 打得开,否则系统停摆的同时,唯一能看出它停摆的东西也没了。
+#
+# 要求 Python ≥ 3.11(用到 `X | None` 写法和 datetime.fromisoformat 的
+# 完整 ISO 解析)。开发机实测 3.14,服务器(Ubuntu 24.04)是 3.12.3。
+
+
+# ── 逐层为什么没引入 ────────────────────────────────────────────────
+#
+# 接口层(serve.py)用 `http.server` 而不是 FastAPI:路由、校验、序列化
+#   在 api.py 里已经照契约做完了,框架买不到新东西,却要拖进 uvicorn /
+#   starlette / pydantic 一整串;而这个系统的峰值并发是 1。
+#
+# 模型调用(llm.py)用 urllib 而不是 httpx/requests:要发的是一天六轮、
+#   一轮七次的串行 POST,连接池和异步都省不到东西。
+#
+# 行情采集(quotes.py)同上,腾讯和东财都是 HTTP GET 拿文本。
+#
+# 指标计算(indicators.py)手写,**没有 pandas / numpy**:MA、MACD、KDJ、
+#   RSI、BOLL 全是几十行的递推,而 pandas 是这个系统里体积最大的一个包。
+#   更要紧的是"缺了就是缺"这条规矩——None 不许退化成 0,而 NaN 在 numpy
+#   里到处传染且悄悄参与运算,正好和这条规矩相反。
+#
+# 浏览器控制(webdriver.py)**没有 selenium**。这一条是本文件早先预测
+#   会破功的地方,原话是"它们要驱动 Chromium,一定会引入依赖"。
+#   **这个预测是错的**,留在这儿是因为它错得有信息量:WebDriver 本身就是
+#   一套 JSON over HTTP 的协议,而这一层真正要用的只有六个动作(开会话、
+#   关会话、跳转、读地址、跑脚本、设超时)。为这六个动作引入 selenium,
+#   会连带 trio、trio-websocket、urllib3、certifi,买到的元素定位、等待
+#   策略、浏览器管理这里一样都用不上——二代早就发现点 DOM 不如注脚本可靠。
+#
+# 验证码识别(captcha.py)**没有 OCR 依赖**,但当前走的不是视觉模型。
+#   原来这里写的是「图交给视觉模型,识别质量还不如直接问模型」。
+#   **那句话现在是错的**:2026-08-20 实测,通用大模型对「识别这张验证码」
+#   会按策略拒答(原话「抱歉，我不能帮助识别或破解验证码」),换提示词、
+#   删参数都一样。不是质量问题,是它不做这件事。
+#
+#   所以现在走图鉴(ttshitu.com)这类打码平台,请求仍然只是 urllib 发一个
+#   JSON —— **零依赖这条没破**,破的是「问模型就行」那个判断。视觉模型
+#   那条路留着没删,哪天它肯做了,改一个配置项就能切回去。
+
+
+# ── 尚未启用 ─────────────────────────────────────────────────────────
+#
+# psycopg[binary]>=3.2
+#   index.py 生产要连 PostgreSQL。**当前自检只跑过 sqlite**,
+#   两种方言的差异集中在 index.Dialect 里(占位符 / JSON 列 / 时间列),
+#   接真库之前不能说它在 PostgreSQL 上验证过。
+#
+#   这是目前唯一一个**预计真会装**的包。真装的那天在这里写清为什么,
+#   并且把上面那句"零第三方依赖"改掉——而不是让它继续挂在文件开头。

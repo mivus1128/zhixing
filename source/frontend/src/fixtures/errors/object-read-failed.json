@@ -1,0 +1,7 @@
+{
+  "ok": false,
+  "error": {
+    "code": "FIXTURE_OBJECTS_UNAVAILABLE",
+    "message": "样例标的清单暂时无法读取，请重试。"
+  }
+}

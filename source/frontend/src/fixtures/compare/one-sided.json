@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "data": {
+    "对比项": [
+      {
+        "context_digest": "sha256:fixture-tradepilot-only-window",
+        "生成时间": "2026-08-16T10:48:00+08:00",
+        "object_id": "SH_510931",
+        "名称": "演示样本甲ETF",
+        "tradepilot": {
+          "操作": "hold",
+          "置信度": 0.58
+        },
+        "一致": false
+      },
+      {
+        "context_digest": "sha256:fixture-tradepilot-only-window",
+        "生成时间": "2026-08-16T10:48:00+08:00",
+        "object_id": "SZ_159932",
+        "名称": "演示样本乙ETF",
+        "tradepilot": {
+          "操作": "sell",
+          "置信度": 0.64
+        },
+        "一致": false
+      },
+      {
+        "context_digest": "sha256:fixture-zhixing-only-window",
+        "生成时间": "2026-08-16T10:48:00+08:00",
+        "object_id": "SH_510931",
+        "名称": "演示样本甲ETF",
+        "zhixing": {
+          "操作": "hold",
+          "置信度": 0.62
+        },
+        "一致": false
+      },
+      {
+        "context_digest": "sha256:fixture-zhixing-only-window",
+        "生成时间": "2026-08-16T10:48:00+08:00",
+        "object_id": "SZ_159932",
+        "名称": "演示样本乙ETF",
+        "zhixing": {
+          "操作": "buy",
+          "置信度": 0.7
+        },
+        "一致": false
+      }
+    ],
+    "汇总": {
+      "总条数": 4,
+      "一致条数": 0,
+      "一致率": 0
+    }
+  }
+}

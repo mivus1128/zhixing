@@ -1,0 +1,170 @@
+name: ${COMPOSE_PROJECT_NAME:-zhixing-v3}
+
+x-api-image: &api-image
+  image: ${ZHIXING_API_IMAGE:-zhixing-api:3.260817.00}
+  build:
+    context: ..
+    dockerfile: deploy/api.Dockerfile
+
+x-default-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  data-init:
+    <<: *api-image
+    user: "0:0"
+    entrypoint:
+      - /bin/sh
+      - -c
+    command:
+      - >-
+        chown -R 10001:10001 /opt/zhixing/data/runtime /opt/zhixing/data/archives
+        && chmod 0700 /opt/zhixing/data/runtime /opt/zhixing/data/archives
+    volumes:
+      - runtime:/opt/zhixing/data/runtime
+      - archives:/opt/zhixing/data/archives
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+    restart: "no"
+    logging: *default-logging
+
+  api:
+    <<: *api-image
+    restart: unless-stopped
+    depends_on:
+      data-init:
+        condition: service_completed_successfully
+    command:
+      - python
+      - -m
+      - zhixing.serve
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8765"
+      - --archive-root
+      - /opt/zhixing/data/archives
+      - --runtime-dir
+      - /opt/zhixing/data/runtime
+    expose:
+      - "8765"
+    volumes:
+      - runtime:/opt/zhixing/data/runtime
+      - archives:/opt/zhixing/data/archives
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8765/api/status', timeout=3).read()
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 5s
+    logging: *default-logging
+
+  daemon:
+    <<: *api-image
+    profiles:
+      - collector
+    restart: unless-stopped
+    depends_on:
+      data-init:
+        condition: service_completed_successfully
+      browser:
+        condition: service_healthy
+    command:
+      - python
+      - -m
+      - zhixing.daemon
+      - --archive-root
+      - /opt/zhixing/data/archives
+      - --runtime-dir
+      - /opt/zhixing/data/runtime
+    volumes:
+      - runtime:/opt/zhixing/data/runtime
+      - archives:/opt/zhixing/data/archives
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    logging: *default-logging
+
+  browser:
+    profiles:
+      - collector
+    image: ${ZHIXING_BROWSER_IMAGE:-selenium/standalone-chromium@sha256:e80834f17556d310d92f114c38df84a4c09bfa9564d428c770ea122346c0932c}
+    restart: unless-stopped
+    expose:
+      - "4444"
+    environment:
+      SE_NODE_MAX_SESSIONS: "1"
+      SE_NODE_OVERRIDE_MAX_SESSIONS: "false"
+    shm_size: ${ZHIXING_BROWSER_SHM_SIZE:-512m}
+    mem_limit: ${ZHIXING_BROWSER_MEMORY:-1g}
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - "/opt/bin/check-grid.sh 2>/dev/null || curl -sf http://localhost:4444/status | grep -q '\"ready\": *true'"
+      interval: 15s
+      timeout: 10s
+      retries: 8
+      start_period: 30s
+    logging: *default-logging
+
+  web:
+    image: ${ZHIXING_WEB_IMAGE:-zhixing-web:3.260817.00}
+    build:
+      context: ..
+      dockerfile: deploy/web.Dockerfile
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "${ZHIXING_WEB_HOST:-127.0.0.1}:${ZHIXING_WEB_PORT:-18765}:8080"
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - -qO
+        - /dev/null
+        - http://127.0.0.1:8080/api/status
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 5s
+    logging: *default-logging
+
+volumes:
+  runtime:
+  archives:

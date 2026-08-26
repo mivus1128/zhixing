@@ -1,0 +1,17 @@
+{
+  "ok": false,
+  "error": {
+    "code": "INVALID_OBJECT",
+    "message": "市场与证券代码均不符合要求。",
+    "问题": [
+      {
+        "code": "BAD_MARKET",
+        "message": "市场只能是 SH 或 SZ。"
+      },
+      {
+        "code": "BAD_SYMBOL",
+        "message": "证券代码必须是纯数字。"
+      }
+    ]
+  }
+}

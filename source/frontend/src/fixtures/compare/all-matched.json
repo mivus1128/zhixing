@@ -1,0 +1,57 @@
+{
+  "ok": true,
+  "data": {
+    "对比项": [
+      {
+        "context_digest": "sha256:fixture-all-matched-window",
+        "生成时间": "2026-08-16T09:48:00+08:00",
+        "object_id": "SH_510911",
+        "名称": "演示稳健甲ETF",
+        "tradepilot": {
+          "操作": "hold",
+          "置信度": 0.59
+        },
+        "zhixing": {
+          "操作": "hold",
+          "置信度": 0.64
+        },
+        "一致": true
+      },
+      {
+        "context_digest": "sha256:fixture-all-matched-window",
+        "生成时间": "2026-08-16T09:48:00+08:00",
+        "object_id": "SZ_159912",
+        "名称": "演示红利乙ETF",
+        "tradepilot": {
+          "操作": "buy",
+          "置信度": 0.67
+        },
+        "zhixing": {
+          "操作": "buy",
+          "置信度": 0.71
+        },
+        "一致": true
+      },
+      {
+        "context_digest": "sha256:fixture-all-matched-window",
+        "生成时间": "2026-08-16T09:48:00+08:00",
+        "object_id": "SH_512913",
+        "名称": "演示周期丙ETF",
+        "tradepilot": {
+          "操作": "sell",
+          "置信度": 0.62
+        },
+        "zhixing": {
+          "操作": "sell",
+          "置信度": 0.66
+        },
+        "一致": true
+      }
+    ],
+    "汇总": {
+      "总条数": 3,
+      "一致条数": 3,
+      "一致率": 1
+    }
+  }
+}

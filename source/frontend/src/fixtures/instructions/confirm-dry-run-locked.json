@@ -1,0 +1,7 @@
+{
+  "ok": false,
+  "error": {
+    "code": "DRY_RUN_LOCKED",
+    "message": "三代当前为只读验证模式,不执行任何真实下单"
+  }
+}

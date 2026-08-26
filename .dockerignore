@@ -1,0 +1,11 @@
+**
+!source/
+!source/backend/
+!source/backend/zhixing/
+!source/backend/zhixing/**
+!frontend-dist/
+!frontend-dist/**
+!deploy/
+!deploy/**
+**/__pycache__/
+**/*.py[cod]

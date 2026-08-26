@@ -1,0 +1,7 @@
+{
+  "ok": false,
+  "error": {
+    "code": "NOT_FOUND",
+    "message": "未找到请求的样例策略归档。"
+  }
+}

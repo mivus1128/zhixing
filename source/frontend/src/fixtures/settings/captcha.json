@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "data": {
+    "接口地址": "https://captcha.example.invalid/v1",
+    "模型": "demo-captcha-vision",
+    "识别方式": "vision",
+    "密钥": "sk-****DEMO",
+    "备用识别": [
+      {
+        "接口地址": "https://ttshitu.example.invalid/predict",
+        "模型": "",
+        "识别方式": "ttshitu",
+        "密钥": "****DEMO"
+      },
+      {
+        "接口地址": "https://chaojiying.example.invalid/upload",
+        "模型": "",
+        "识别方式": "chaojiying",
+        "密钥": "****DEMO"
+      }
+    ]
+  }
+}

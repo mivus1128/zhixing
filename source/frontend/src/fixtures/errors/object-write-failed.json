@@ -1,0 +1,7 @@
+{
+  "ok": false,
+  "error": {
+    "code": "FIXTURE_OBJECT_WRITE_FAILED",
+    "message": "样例标的存储写入失败，请保留当前内容后重试。"
+  }
+}

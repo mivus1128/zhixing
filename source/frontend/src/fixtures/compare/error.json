@@ -1,0 +1,7 @@
+{
+  "ok": false,
+  "error": {
+    "code": "COMPARE_UNAVAILABLE",
+    "message": "演示对比数据暂时不可用，请稍后重试。"
+  }
+}

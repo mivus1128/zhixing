@@ -1,0 +1,50 @@
+{
+  "ok": true,
+  "data": [
+    {
+      "日期": "2026-08-18",
+      "轮数": 6,
+      "input_tokens": 360000,
+      "output_tokens": 22400,
+      "reasoning_tokens": 17600,
+      "cached_tokens": 270000,
+      "缓存命中率": 0.75
+    },
+    {
+      "日期": "2026-08-17",
+      "轮数": 6,
+      "input_tokens": 330000,
+      "output_tokens": 20800,
+      "reasoning_tokens": 16200,
+      "cached_tokens": 237600,
+      "缓存命中率": 0.72
+    },
+    {
+      "日期": "2026-08-16",
+      "轮数": 6,
+      "input_tokens": 390000,
+      "output_tokens": 24600,
+      "reasoning_tokens": 19100,
+      "cached_tokens": 304200,
+      "缓存命中率": 0.78
+    },
+    {
+      "日期": "2026-08-15",
+      "轮数": 4,
+      "input_tokens": 280000,
+      "output_tokens": 18100,
+      "reasoning_tokens": 13800,
+      "cached_tokens": 184800,
+      "缓存命中率": 0.66
+    },
+    {
+      "日期": "2026-08-14",
+      "轮数": 6,
+      "input_tokens": 410000,
+      "output_tokens": 25900,
+      "reasoning_tokens": 20400,
+      "cached_tokens": 315700,
+      "缓存命中率": 0.77
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "data": [
+    {
+      "日期": "2026-08-18",
+      "轮数": 6,
+      "input_tokens": 398420,
+      "output_tokens": 23100,
+      "reasoning_tokens": 18400,
+      "cached_tokens": 1152,
+      "缓存命中率": 0.0029
+    },
+    {
+      "日期": "2026-08-17",
+      "轮数": 6,
+      "input_tokens": 372600,
+      "output_tokens": 21900,
+      "reasoning_tokens": 17100,
+      "cached_tokens": 2304,
+      "缓存命中率": 0.0062
+    }
+  ]
+}

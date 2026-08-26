@@ -1,0 +1,20 @@
+# 统一换行符，避免 Ubuntu 上的 shell 脚本被 CRLF 破坏。
+* text=auto eol=lf
+
+# 二进制文件不做换行转换。
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.zip  binary
+*.woff  binary
+*.woff2 binary
+
+# Windows 批处理必须保留 CRLF。
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 线上复制的后端核心源码保持原始字节和换行，不由 Git 自动改写。
+source/backend/** -text whitespace=cr-at-eol

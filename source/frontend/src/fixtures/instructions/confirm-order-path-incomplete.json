@@ -1,0 +1,7 @@
+{
+  "ok": false,
+  "error": {
+    "code": "ORDER_PATH_INCOMPLETE",
+    "message": "验证锁已解除，但人工接管下单还不能用，演示指令未提交。还差：人工复核通路。"
+  }
+}

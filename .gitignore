@@ -1,0 +1,98 @@
+# 本地配置与机密
+.env
+.env.*
+!.env.example
+**/secrets/
+**/*secret*
+**/*credential*
+**/*.key
+**/*.pem
+**/*.p12
+**/*.pfx
+**/cookies*.json
+**/token*.json
+/account.json
+/broker.json
+
+# 浏览器登录态
+**/broker_profile/
+**/chrome_profile/
+**/chromium_profile/
+**/user-data-dir/
+**/*.sqlite
+**/*.sqlite-journal
+**/Cookies
+**/Cookies-journal
+**/Login Data
+**/Login Data-journal
+**/Web Data
+**/Web Data-journal
+**/Local State
+**/History
+**/History-journal
+
+# 运行数据。账户、密码、密钥和策略归档只允许存在于 Docker 卷中。
+private/
+data/
+runtime/
+archives/
+backups/
+broker.account
+broker.password
+broker.loginproof
+model.secret
+captcha.secret
+captcha.chain
+captcha-samples/
+**/strategy_results/
+**/screenshots/
+*.log
+logs/
+
+# 前端
+node_modules/
+dist/
+.vite/
+*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# 备份与临时文件
+*.bak
+*.bak.*
+*.bak_*
+*.bak__*
+*~
+*.orig
+*.rej
+*.har
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+
+# 操作系统与编辑器
+Thumbs.db
+desktop.ini
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# 同步软件产生的冲突副本
+*冲突*
+*conflict*
+* (1).*
+* (2).*

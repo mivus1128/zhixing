@@ -1,0 +1,72 @@
+{
+  "ok": true,
+  "data": {
+    "对比项": [
+      {
+        "context_digest": "sha256:fixture-mismatch-window",
+        "生成时间": "2026-08-16T10:18:00+08:00",
+        "object_id": "SH_510921",
+        "名称": "演示低波甲ETF",
+        "tradepilot": {
+          "操作": "hold",
+          "置信度": 0.56
+        },
+        "zhixing": {
+          "操作": "buy",
+          "置信度": 0.74
+        },
+        "一致": false
+      },
+      {
+        "context_digest": "sha256:fixture-mismatch-window",
+        "生成时间": "2026-08-16T10:18:00+08:00",
+        "object_id": "SZ_159922",
+        "名称": "演示质量乙ETF",
+        "tradepilot": {
+          "操作": "sell",
+          "置信度": 0.65
+        },
+        "zhixing": {
+          "操作": "hold",
+          "置信度": 0.6
+        },
+        "一致": false
+      },
+      {
+        "context_digest": "sha256:fixture-mismatch-window",
+        "生成时间": "2026-08-16T10:18:00+08:00",
+        "object_id": "SH_512923",
+        "名称": "演示主题丙ETF",
+        "tradepilot": {
+          "操作": "hold",
+          "置信度": 0.52
+        },
+        "zhixing": {
+          "操作": "hold",
+          "置信度": 0.69
+        },
+        "一致": true
+      },
+      {
+        "context_digest": "sha256:fixture-mismatch-window",
+        "生成时间": "2026-08-16T10:18:00+08:00",
+        "object_id": "SZ_159924",
+        "名称": "演示核心丁ETF",
+        "tradepilot": {
+          "操作": "cancel",
+          "置信度": 0.61
+        },
+        "zhixing": {
+          "操作": "cancel",
+          "置信度": 0.63
+        },
+        "一致": true
+      }
+    ],
+    "汇总": {
+      "总条数": 4,
+      "一致条数": 2,
+      "一致率": 0.5
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "data": [
+    {
+      "model": "demo-reasoner-a",
+      "轮数": 64,
+      "input_tokens": 664000,
+      "output_tokens": 41800,
+      "reasoning_tokens": 32300,
+      "cached_tokens": 504640,
+      "缓存命中率": 0.76
+    },
+    {
+      "model": "demo-reasoner-b",
+      "轮数": 20,
+      "input_tokens": 215000,
+      "output_tokens": 13500,
+      "reasoning_tokens": 10300,
+      "cached_tokens": 144050,
+      "缓存命中率": 0.67
+    }
+  ]
+}

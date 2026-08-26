@@ -1,0 +1,32 @@
+{
+  "ok": true,
+  "data": [
+    {
+      "object_id": "SH_510901",
+      "轮数": 28,
+      "input_tokens": 292000,
+      "output_tokens": 18300,
+      "reasoning_tokens": 14100,
+      "cached_tokens": 216080,
+      "缓存命中率": 0.74
+    },
+    {
+      "object_id": "SZ_159902",
+      "轮数": 28,
+      "input_tokens": 306000,
+      "output_tokens": 19400,
+      "reasoning_tokens": 15000,
+      "cached_tokens": 208080,
+      "缓存命中率": 0.68
+    },
+    {
+      "object_id": "SH_600903",
+      "轮数": 28,
+      "input_tokens": 281000,
+      "output_tokens": 17600,
+      "reasoning_tokens": 13500,
+      "cached_tokens": 224800,
+      "缓存命中率": 0.8
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "data": {
+    "浏览器远端": "http://browser.example.invalid:4444/wd/hub",
+    "资金账号": "000****0000",
+    "交易密码已配置": true,
+    "缺项": [],
+    "已配全": true
+  }
+}

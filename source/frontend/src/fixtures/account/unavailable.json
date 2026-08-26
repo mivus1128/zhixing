@@ -1,0 +1,7 @@
+{
+  "ok": false,
+  "error": {
+    "code": "NO_ACCOUNT_SNAPSHOT",
+    "message": "还没有采到过账户数据。可能是券商登录还没配好，也可能是还没跑过一轮。"
+  }
+}

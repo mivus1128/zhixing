@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Scan public tree
+        run: |
+          python scripts/check_public_tree.py
+          python scripts/check_version.py
+          cmp deploy/api.Dockerfile source/deploy/api.Dockerfile
+          cmp deploy/web.Dockerfile source/deploy/web.Dockerfile
+
+      - name: Run backend smoke suite
+        working-directory: source/backend
+        run: python -m tests.smoke
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: source/frontend/package-lock.json
+
+      - name: Check and build frontend
+        working-directory: source/frontend
+        run: |
+          npm ci
+          npm run check
+
+      - name: Verify published frontend bundle
+        run: diff -qr source/frontend/dist frontend-dist
+
+      - name: Validate Compose
+        run: docker compose -f deploy/compose.yaml --profile collector config
+
+      - name: Build deployable images
+        run: docker compose -f deploy/compose.yaml build api web
